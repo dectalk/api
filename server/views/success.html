@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="MSS-DECtalk provides a repository of DECtalk compatible tunes, as well as a cloud service to play sounds.">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+		<title>MSS-DECtalk</title>
+	</head>
+
+	<body>
+		<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+			<button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="navbar-brand" href="/">DECtalk</a>
+
+			<div class="navbar-collapse collapse" id="navbarsExampleDefault" aria-expanded="false">
+				<ul class="navbar-nav mr-auto">
+					{{#user}}
+					<li class="nav-item">
+						<span class="nav-link">Logged in as {{ name }}</span>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/auth/logout">Log out</a>
+					</li>
+					{{/user}}
+					{{^user}}
+					<li class="nav-item">
+						<span class="nav-link">If you are seeing this, we've fucked up somewhere</span>
+					</li>
+					{{/user}}
+
+				</ul>
+			</div>
+		</nav>
+		<br><br>
+
+		<div class="jumbotron">
+			<div class="container">
+				<h1 class="display-1">DECtalk</h1>
+				<h2>but you've just finished doing something</h2>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Okay</h2>
+					<p>We've taken what you've just did and will be processing it.</p>
+				</div>
+			</div>
+
+			<hr>
+
+			<footer>
+				<p>&copy; 2015 - 2017 moustacheminer.com</p>
+				<i>Powered by yesterday</i>
+			</footer>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+	</body>
+</html>
