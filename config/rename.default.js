@@ -12,7 +12,7 @@ module.exports = {
 	},
 	url: '127.0.0.1',
 	ports: {
-		http: 8000
+		http: 3472
 	},
 	rethinkdb: {
 		host: '',
