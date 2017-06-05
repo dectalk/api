@@ -19,6 +19,12 @@ authRouter.use('/login/callback/discord', auth.authenticate('discord'), function
 });
 authRouter.get('/login/discord', auth.authenticate('discord'));
 
+// Reddit
+authRouter.use('/login/callback/reddit', auth.authenticate('reddit'), function (req, res) {
+	res.redirect('/');
+});
+authRouter.get('/login/reddit', auth.authenticate('reddit'));
+
 // All
 authRouter.use('/user', authControllers.getUser);
 authRouter.use('/logout', authControllers.logout);

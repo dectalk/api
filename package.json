@@ -22,6 +22,7 @@
     "passport": "^0.2.2",
     "passport-discord": "^0.1.2",
     "passport-github": "^0.1.5",
+    "passport-reddit": "^0.2.4",
     "request": "^2.81.0",
     "rethinkdb": "^2.3.3",
     "rethinkdb-init": "0.0.2",

@@ -5,6 +5,7 @@ var config = require('config');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
 var DiscordStrategy = require('passport-discord').Strategy;
+var RedditStrategy = require('passport-reddit').Strategy;
 //var TwitterStrategy = require('passport-twitter').Strategy;
 var r = require('../db');
 
@@ -85,6 +86,24 @@ passport.use(new DiscordStrategy({
 			'type': 'discord'
 		};
 	}, 'discord')
+));
+
+// Reddit
+passport.use(new RedditStrategy({
+		clientID: config.get('reddit').clientID,
+		clientSecret: config.get('reddit').clientSecret,
+		callbackURL: config.get('callback') + '/reddit',
+    },
+	loginCallbackHandler(function (profile) {
+		console.dir(profile);
+
+		return {
+			'login': profile.id,
+			'name': profile.id,
+			'avatarUrl': `https://images.discordapp.net/avatars/${profile.id}/${profile.avatar}.png?size=512`,
+			'type': 'reddit'
+		};
+	}, 'reddit')
 ));
 
 passport.checkIfLoggedIn = function (req, res, next) {
