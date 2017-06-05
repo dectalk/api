@@ -214,6 +214,7 @@ app.use('/auth', authRouter)
 	})
 	.use('/api/gen', function(req, res) {
 		let input = req.body.dectalk || req.query.dectalk;
+		console.log(input)
 		if(!input || typeof(input) != "string" || input.length > config.get('limits').dectalk.max ) return res.status(400).render('error.html', { user: req.user, status: 400, message: "The dectalk was invalid, or outside the allowed range." });
 
 		//Make a temp file to store the file
