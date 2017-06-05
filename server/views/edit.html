@@ -18,7 +18,7 @@
 			<div class="navbar-collapse collapse" id="navbarsExampleDefault" aria-expanded="false">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="/lib">Library</a>
+						<a class="nav-link" href="/list">Library</a>
 					</li>
 					{{#user}}
 					<li class="nav-item">
@@ -64,7 +64,7 @@
 						<div class="form-group">
 							<label for="author">Author</label>
 							<input type="text" class="form-control" id="author" name="author" placeholder="Insert Author" value="{{ form.author }}">
-							<small id="authorHelp" class="form-text text-muted">This is your fixed username followed by whatever you used to log on. If you edit this, you may not be able to edit your DECtalk anymore.</small>
+							<small id="authorHelp" class="form-text text-muted">Only admins are allowed to edit this value.</small>
 						</div>
 						<div class="form-group">
 							<label for="artist">Artist</label>
@@ -74,7 +74,7 @@
 							<label for="dectalk">DECtalk</label>
 							<textarea class="form-control" id="dectalk" name="dectalk" rows="6">{{ form.dectalk }}</textarea>
 						</div>
-						<button type="submit" class="btn btn-primary">Edit</button><input type="text" name="csrf" value="{{ csrf }}" style="visibility: hidden">
+						<button type="submit" class="btn btn-primary">Edit</button><input type="text" name="csrf" value="{{ csrf }}" style="visibility: hidden" disabled>
 					</form>
 				</div>
 			</div>

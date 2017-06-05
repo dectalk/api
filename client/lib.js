@@ -1,6 +1,6 @@
 //Load DataTables on load
 $('#dectalk').DataTable({
-	ajax: "/list?array",
+	ajax: url,
 	sAjaxDataProp: "",
 	bAutoWidth: false,
 	fixedColumns: true,
@@ -16,10 +16,6 @@ $('#dectalk').DataTable({
 		},
 		{
 			mData: "artist"
-		},
-		{
-			mData: null,
-			mRender: (data, type, full) => { return `<audio controls preload="none"><source src="/dec/${full.id}.wav"></source></audio>`;}
 		},
 		{
 			mData: "html"
