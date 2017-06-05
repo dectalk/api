@@ -9,7 +9,7 @@ const fs	= require('fs');
 r.table("list")
 	.run(r.conn, (err, cursor) => {
 
-		cursor((err, elem) => {
+		cursor.each((err, elem) => {
 			if (err) throw err;
 
 			fs.stat(`..\\client\\dec\\${elem.ID}.wav`, function(err, stat) {
