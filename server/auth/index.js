@@ -53,7 +53,7 @@ var loginCallbackHandler = function (objectMapper, type) {
 		}
 	};
 };
-var callbackURL = 'http://' + config.get('url') + ':' + config.get('ports').http + '/auth/login/callback';
+var callbackURL = 'https://' + config.get('url') + ':' + config.get('ports').http + '/auth/login/callback';
 
 // Github
 passport.use(new GitHubStrategy({
