@@ -6,8 +6,7 @@ const tmp	= require('tmp');
 const fs	= require('fs');
 
 //No need for reconnect script, it shouldn't take long
-r.table("list")
-	.run(r.conn, (err, cursor) => {
+r.table("list").run(r.conn, (err, cursor) => {
 
 		cursor.each((err, elem) => {
 			if (err) throw err;
