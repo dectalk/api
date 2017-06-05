@@ -36,7 +36,7 @@ setTimeout(()=>{
 									});
 								});
 							} else {
-								console.log(`Skipping ${elem.ID}`);
+								console.log(`Skipping ${elem.id}`);
 							}
 						});
 					});
