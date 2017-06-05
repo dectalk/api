@@ -23,7 +23,10 @@ authRouter.get('/login/discord', auth.authenticate('discord'));
 authRouter.use('/login/callback/reddit', auth.authenticate('reddit'), function (req, res) {
 	res.redirect('/');
 });
-authRouter.get('/login/reddit', auth.authenticate('reddit'));
+authRouter.get('/login/reddit', auth.authenticate('reddit', {
+	state: 'liquid',
+	duration: 'permanent'
+});
 
 // All
 authRouter.use('/user', authControllers.getUser);
