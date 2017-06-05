@@ -1,28 +1,31 @@
 {
-	"name": "dectalk-webservice",
-	"version": "1.0.0",
-	"description": "DECtalk as a Web Service",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "./node_modules/nodemon/bin/nodemon.js ./server"
-	},
-	"author": "7coil",
-	"license": "MIT",
-	"dependencies": {
-		"body-parser": "^1.17.2",
-		"config": "^1.26.1",
-		"consolidate": "^0.12.1",
-		"express": "^4.15.3",
-		"express-session": "^1.15.3",
-		"mustache": "^2.3.0",
-		"passport": "^0.2.2",
-		"passport-discord": "^0.1.2",
-		"passport-github": "^0.1.5",
-		"rethinkdb": "^2.3.3",
-		"rethinkdb-init": "0.0.2"
-	},
-	"devDependencies": {
-		"nodemon": "^1.11.0"
-	}
+  "name": "dectalk-webservice",
+  "version": "1.0.0",
+  "description": "DECtalk as a Web Service",
+  "main": "./server",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "./node_modules/nodemon/bin/nodemon.js ./server"
+  },
+  "author": "7coil",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "config": "^1.26.1",
+    "consolidate": "^0.12.1",
+    "csurf": "^1.9.0",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "mustache": "^2.3.0",
+    "passport": "^0.2.2",
+    "passport-discord": "^0.1.2",
+    "passport-github": "^0.1.5",
+    "rethinkdb": "^2.3.3",
+    "rethinkdb-init": "0.0.2",
+    "tmp": "0.0.31"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
 }

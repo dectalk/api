@@ -17,12 +17,18 @@
 
 			<div class="navbar-collapse collapse" id="navbarsExampleDefault" aria-expanded="false">
 				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/lib">Library</a>
+					</li>
 					{{#user}}
 					<li class="nav-item">
-						<span class="nav-link">Logged in as {{ name }}</span>
+						<span class="nav-link">Logged in as {{ login }}@{{ type }}</span>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/auth/logout">Log out</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/add">Add</a>
 					</li>
 					{{/user}}
 					{{^user}}
@@ -59,7 +65,7 @@
 				<div class="col-md-4">
 					<h2>Web Service</h2>
 					<p>MSS provides a free webservice to allow users to use DECtalk without a Microsoft Windows computer.</p>
-					<form action="/post" method="POST">
+					<form action="/api/gen" method="POST">
 						<div class="form-group">
 							<label for="input">Insert DECtalk Query</label>
 							<textarea class="form-control" id="input" name="input"></textarea>

@@ -6,24 +6,23 @@ $('#dectalk').DataTable({
 	fixedColumns: true,
 	aoColumns: [
 		{
-			mData: "id",
+			mData: "id"
 		},
 		{
-			mData: "name",
+			mData: "name"
 		},
 		{
-			mData: "author",
+			mData: "author"
 		},
 		{
-			mData: "artist",
+			mData: "artist"
 		},
 		{
 			mData: null,
 			mRender: (data, type, full) => { return `<audio controls preload="none"><source src="/dec/${full.id}.wav"></source></audio>`;}
 		},
 		{
-			mData: "dectalk",
-			mRender: (data, type, full) => { return `<button type="button" class="btn btn-primary" onclick="copyText(\`${data}\`)">Copy</button>`;}
+			mData: "html"
 		}
 	]
 });

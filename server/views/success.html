@@ -17,12 +17,18 @@
 
 			<div class="navbar-collapse collapse" id="navbarsExampleDefault" aria-expanded="false">
 				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/lib">Library</a>
+					</li>
 					{{#user}}
 					<li class="nav-item">
-						<span class="nav-link">Logged in as {{ name }}</span>
+						<span class="nav-link">Logged in as {{ login }}@{{ type }}</span>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/auth/logout">Log out</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/add">Add</a>
 					</li>
 					{{/user}}
 					{{^user}}
