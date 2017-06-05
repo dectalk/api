@@ -147,7 +147,7 @@ app.use('/auth', authRouter)
 						}
 
 						r.table("list")
-							.get(id)
+							.get(req.body.id)
 							.update(input)
 							.run(r.conn, (err, result) => {
 								if (err) return res.status(500).render('error.html', { user: req.user, status: 500, message: "An error occured with the Rethonk DB server." });
