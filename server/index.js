@@ -241,7 +241,9 @@ app.use('/auth', authRouter)
 		});
 	})
 	.get('/api/render', function(req, res) {
+		if(!req.user) return res.status(401).render('error.html', { user: req.user, status: 401, message: "You have not logged in yet" });
 		if(!config.get('admins').includes(`${req.user.login}@${req.user.type}`)) return res.status(403).render('error.html', { user: req.user, status: 403, message: "You're not allowed to be in these realms!" });
+
 		r.table("list")
 			.run(r.conn, (err, cursor) => {
 				if (err) return res.send(500, {error: err.message});
