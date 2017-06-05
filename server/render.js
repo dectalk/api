@@ -10,9 +10,8 @@ const fs	= require('fs');
 setTimeout(()=>{
 	r.table("list")
 		.run(r.conn, (err, cursor) => {
-			if (err) {
-				return res.send(500, {error: err.message});
-			} else {
+			if (err) return res.send(500, {error: err.message});
+
 				cursor.toArray((err, result) => {
 					if (err) return res.send(500, {error: err.message});
 					result.forEach((elem)=>{
@@ -42,13 +41,11 @@ setTimeout(()=>{
 								console.log(`Skipping ${elem.ID}`);
 							}
 						});
-					})
-				})
-			}
+					});
+				});
+
 		});
 
 
-
-	});
 }, 10000)
 
