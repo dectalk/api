@@ -58,7 +58,7 @@ app.use('/auth', authRouter)
 						item["html"] = `<audio controls preload="none"><source src="/dec/${item.id}.wav"></source></audio>`
 						item["html"] += `<br>`
 						item["html"] += `<a class="btn btn-primary" href="/dec/${item.id}.wav" role="button">Download</a>`
-						item["html"] += `<button type="button" class="btn btn-primary" onclick="copyText(\`${item.dectalk.replace(/`/g, "\\\`").replace(/"/g, "\\\"")}\`)">Copy</button>`
+						item["html"] += `<button type="button" class="btn btn-primary" onclick="copyText(\`${item.dectalk.replace(/`/g, "\\\`").replace(/"/g, '\\\'')}\`)">Copy</button>`
 						if(req.user) {
 							if (config.get('admins').includes(`${req.user.login}@${req.user.type}`) || item.author === `${req.user.login}@${req.user.type}`) {
 								item["html"] += `<a class="btn btn-primary" href="/edit?id=${item.id}" role="button">Edit</a>`
@@ -107,7 +107,7 @@ app.use('/auth', authRouter)
 						cursor.toArray((err, result) => {
 							if (err) return res.send(500, {error: err.message});
 							result = result.map((item)=>{
-								item["html"] = `<button type="button" class="btn btn-primary" onclick="copyText(\`${item.dectalk.replace(/`/g, "\\\`").replace(/"/g, "\\\"")}\`)">Copy</button>`
+								item["html"] = `<button type="button" class="btn btn-primary" onclick="copyText(\`${item.dectalk.replace(/`/g, "\\\`").replace(/"/g, '\\\'')}\`)">Copy</button>`
 								item["html"] += `<a class="btn btn-primary" href="/approve?id=${item.id}&csrf=${csrf}&accept=false" role="button">Reject</a>`
 								item["html"] += `<a class="btn btn-primary" href="/approve?id=${item.id}&csrf=${csrf}&accept=true" role="button">Accept</a>`
 								return item;
