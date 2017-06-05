@@ -240,6 +240,40 @@ app.use('/auth', authRouter)
 			});
 		});
 	})
+	.get('/api/render', function(req, res) {
+		if(!config.get('admins').includes(`${req.user.login}@${req.user.type}`)) return res.status(403).render('error.html', { user: req.user, status: 403, message: "You're not allowed to be in these realms!" });
+		r.table("list")
+			.run(r.conn, (err, cursor) => {
+				if (err) return res.send(500, {error: err.message});
+
+					cursor.toArray((err, result) => {
+						if (err) return res.send(500, {error: err.message});
+						res.render('success.html', { user: req.user });
+
+						result.filter((elem) => {
+							return elem.status == "render";
+						}).forEach((elem, i)=>{
+							setTimeout(()=>{
+								console.log(`Rendering ${elem.id}`);
+								//Make a temp file to store the file
+								tmp.file((err, path, fd, clean) => {
+									if (err) throw err;
+
+									//Write the message to the temp file
+									fs.writeFile(path, "[:phone on]" + elem.dectalk, (err) => {
+										if (err) throw err;
+
+										//Grab the file, and write it into the dec folder
+										exec(`type ${path} | say -w client\\dec\\${elem.id}.wav`, (err) => {
+											if (err) throw err;
+										});
+									});
+								});
+							}, i*200);
+						});
+					});
+			});
+	})
 	.use(express.static(__dirname + '/../client'))
 	.use('*', function (req, res) {
 		return res.status(404).render('error.html', { user: req.user, status: 404 });
