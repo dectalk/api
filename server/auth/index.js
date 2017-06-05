@@ -100,7 +100,7 @@ passport.use(new RedditStrategy({
 		return {
 			'login': profile.id,
 			'name': profile.id,
-			'avatarUrl': `https://images.discordapp.net/avatars/${profile.id}/${profile.avatar}.png?size=512`,
+			'avatarUrl': `https://talk.moustacheminer.com/icon/reddit.png`,
 			'type': 'reddit'
 		};
 	}, 'reddit')
