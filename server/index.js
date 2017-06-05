@@ -457,7 +457,8 @@ app.use('/auth', authRouter)
 
 											r.table("list")
 												.get(elem.id)
-												.update({status: null});
+												.update({status: null})
+												.run(r.conn);
 										});
 									});
 								});
