@@ -15,6 +15,7 @@ var crypto = require('crypto');
 var tmp = require('tmp');
 var fs = require('fs');
 var exec = require('child_process').exec;
+var request = require('request');
 
 var r = require("./db");
 
@@ -151,15 +152,30 @@ app.use('/auth', authRouter)
 						if (err) return res.status(500).render('error.html', { user: req.user, status: 500, message: "An error occured with the Rethonk DB server." });
 						if (!result.csrf || !req.query.csrf || result.csrf != req.query.csrf) return res.status(400).render('error.html', { user: req.user, status: 400, message: "Invalid CSRF token provided" });
 
+						let data = {
+							url: config.get('discord').webhook,
+							method: "POST",
+							json: true,
+							headers: {
+								"User-Agent": config.get('useragent')
+							},
+							body: {
+								username: "DECtalk Online"
+							}
+						}
+
 						if (req.query.accept == "true") {
 							r.table("list")
 								.insert(input)
 								.run(r.conn, (err, result) => {
 									if (err) return res.status(500).render('error.html', { user: req.user, status: 500, message: "An error occured with the Rethonk DB server." });
 								});
+							data.body.content = `**Accepted** DECtalk titled: \`${input.name.replace(/`/g, "\`")}\` by \`${input.author.replace(/`/g, "\`")}\``;
 						} else {
-							//reject discord webhook?
+							data.body.content = `**Declined** DECtalk titled: \`${input.name.replace(/`/g, "\`")}\` by \`${input.author.replace(/`/g, "\`")}\``;
 						}
+
+						request.post(data);
 
 						//Delete it afterwards
 						r.table("queue")
