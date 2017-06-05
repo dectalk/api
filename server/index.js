@@ -57,7 +57,7 @@ app.use('/auth', authRouter)
 					result = result.map((item)=>{
 						item["html"] = "";
 						if(item.status == "render") {
-							item["html"] += `<a class="btn btn-primary" role="button">This has not been rendered yet</a>`
+							item["html"] += `<div class="alert alert-danger" role="alert"><strong>Fiddlesticks!</strong> This hasn't been rendered yet</div>`
 						} else {
 							item["html"] += `<audio controls preload="none"><source src="/dec/${item.id}.wav"></source></audio>`
 							item["html"] += `<br>`
