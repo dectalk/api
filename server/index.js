@@ -121,8 +121,6 @@ app.use('/auth', authRouter)
 
 	})
 	.get('/approve', function(req, res) {
-		console.log(req.query.id, req.query.id.length)
-
 		if(!req.user) return res.status(401).render('error.html', { user: req.user, status: 401, message: "You have not logged in yet" });
 		if(!config.get('admins').includes(`${req.user.login}@${req.user.type}`)) return res.status(403).render('error.html', { user: req.user, status: 403, message: "You're not allowed to be in these realms!" });
 		if(!req.query.csrf		|| typeof(req.query.csrf) != "string"	|| req.query.csrf.length < config.get('limits').csrf.min	|| req.query.csrf.length > config.get('limits').csrf.max	) return res.status(400).render('error.html', { user: req.user, status: 400, message: "Invalid CSRF token provided" });
@@ -175,10 +173,7 @@ app.use('/auth', authRouter)
 							data.body.content = `**Declined** DECtalk titled: \`${input.name.replace(/`/g, "\`")}\` by \`${input.author.replace(/`/g, "\`")}\``;
 						}
 
-						console.dir(data);
-						request.post(data, (err, res, body) => {
-							console.log(err, res, body)
-						});
+						request.post(data);
 
 						//Delete it afterwards
 						r.table("queue")
@@ -226,8 +221,6 @@ app.use('/auth', authRouter)
 
 	})
 	.post('/delete', function(req, res) {
-		console.log(req.query.id, req.query.id.length)
-
 		if(!req.user) return res.status(401).render('error.html', { user: req.user, status: 401, message: "You have not logged in yet" });
 		if(!req.body.csrf	|| typeof(req.body.csrf) != "string"	|| req.body.csrf.length < config.get('limits').csrf.min	|| req.body.csrf.length > config.get('limits').csrf.max	) return res.status(400).render('error.html', { user: req.user, status: 400, message: "Invalid CSRF token provided" });
 		if(!req.body.id		|| typeof(req.body.id) != "string"		|| req.body.id.length < config.get('limits').author.min	|| req.body.id.length > config.get('limits').author.max	) return res.status(400).render('error.html', { user: req.user, status: 400, message: "The ID was invalid, or outside the allowed range." });
@@ -336,7 +329,6 @@ app.use('/auth', authRouter)
 							.run(r.conn, (err, result) => {
 								if (err) return res.status(500).render('error.html', { user: req.user, status: 500, message: "An error occured with the Rethonk DB server." });
 
-								console.dir(result);
 								return res.render('success.html', { user: req.user })
 							});
 					});
@@ -395,20 +387,16 @@ app.use('/auth', authRouter)
 					})
 					.run(r.conn, (err, result) => {
 						if (err) return res.status(500).render('error.html', { user: req.user, status: 500, message: "An error occured with the Rethonk DB server." });
-
-						console.dir(result);
 						return res.render('success.html', { user: req.user })
 					});
 			});
 	})
 	.use('/api/gen', function(req, res) {
 		let input = req.body.dectalk || req.query.dectalk;
-		console.log(input)
 		if(!input || typeof(input) != "string" || input.length > config.get('limits').dectalk.max ) return res.status(400).render('error.html', { user: req.user, status: 400, message: "The dectalk was invalid, or outside the allowed range." });
 
 		//Make a temp file to store the file
 		tmp.file((err, path, fd, clean) => {
-			console.log(path);
 			//Write the message to the temp file
 			fs.writeFile(path, `[:phone on]${input}`, (error) => {
 				if (error) return res.status(500).render('error.html', { user: req.user, status: 500, message: "An error occured while writing your file to a temporary file." });
@@ -448,7 +436,6 @@ app.use('/auth', authRouter)
 							return elem.status == "render";
 						}).forEach((elem, i)=>{
 							setTimeout(()=>{
-								console.log(`Rendering ${elem.id}`);
 								//Make a temp file to store the file
 								tmp.file((err, path, fd, clean) => {
 									if (err) throw err;
