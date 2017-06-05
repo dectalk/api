@@ -453,6 +453,10 @@ app.use('/auth', authRouter)
 										//Grab the file, and write it into the dec folder
 										exec(`type ${path} | say -w client\\dec\\${elem.id}.wav`, (err) => {
 											if (err) throw err;
+
+											r.table("list")
+												.get(elem.id)
+												.update({status: null});
 										});
 									});
 								});
