@@ -213,8 +213,8 @@ app.use('/auth', authRouter)
 			});
 	})
 	.use('/api/gen', function(req, res) {
-		let input = req.body.dectalk || req.query.dectalk
-		if(!input || typeof(input) != "string" || input.length < config.get('limits').dectalk.min || input.length > config.get('limits').dectalk.max ) return res.status(400).render('error.html', { user: req.user, status: 400, message: "The dectalk was invalid, or outside the allowed range." });
+		let input = req.body.dectalk || req.query.dectalk;
+		if(!input || typeof(input) != "string" || input.length > config.get('limits').dectalk.max ) return res.status(400).render('error.html', { user: req.user, status: 400, message: "The dectalk was invalid, or outside the allowed range." });
 
 		//Make a temp file to store the file
 		tmp.file((err, path, fd, clean) => {
