@@ -26,7 +26,7 @@ authRouter.use('/login/callback/reddit', auth.authenticate('reddit'), function (
 authRouter.get('/login/reddit', auth.authenticate('reddit', {
 	state: 'liquid',
 	duration: 'permanent'
-});
+}));
 
 // All
 authRouter.use('/user', authControllers.getUser);
