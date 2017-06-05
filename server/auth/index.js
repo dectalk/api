@@ -24,6 +24,7 @@ passport.deserializeUser(function (id, done) {
 
 var loginCallbackHandler = function (objectMapper, type) {
 	return function (accessToken, refreshToken, profile, done) {
+		console.dir(profile);
 		if (accessToken !== null) {
 		r.table('users')
 			.getAll(profile.username, { index: 'login' })
