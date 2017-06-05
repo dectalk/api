@@ -164,7 +164,12 @@ app.use('/auth', authRouter)
 								"User-Agent": config.get('useragent')
 							},
 							body: {
-								username: "DECtalk Online"
+								username: config.get('name'),
+								embeds: [{
+									author: {
+										name: `${req.user.login}@${req.user.type}`,
+									}
+								}]
 							}
 						}
 
@@ -173,13 +178,15 @@ app.use('/auth', authRouter)
 								.insert(input)
 								.run(r.conn, (err, result) => {
 									if (err) return res.status(500).render('error.html', { user: req.user, status: 500, message: "An error occured with the Rethonk DB server." });
+									data.body.embeds[0].title = `Accepted`;
+									data.body.embeds[0].description = `\`${result.generated_keys[0]}\` ${input.name} by ${input.author}`;
+									request.post(data);
 								});
-							data.body.content = `**Accepted** DECtalk titled: \`${input.name.replace(/`/g, "\`")}\` by \`${input.author.replace(/`/g, "\`")}\``;
 						} else {
-							data.body.content = `**Declined** DECtalk titled: \`${input.name.replace(/`/g, "\`")}\` by \`${input.author.replace(/`/g, "\`")}\``;
+							data.body.embeds[0].title = `Rejected`;
+							data.body.embeds[0].description = `${input.name} by ${input.author}`;
+							request.post(data);
 						}
-
-						request.post(data);
 
 						//Delete it afterwards
 						r.table("queue")
@@ -393,6 +400,27 @@ app.use('/auth', authRouter)
 					})
 					.run(r.conn, (err, result) => {
 						if (err) return res.status(500).render('error.html', { user: req.user, status: 500, message: "An error occured with the Rethonk DB server." });
+
+						let data = {
+							url: config.get('discord').webhook,
+							method: "POST",
+							json: true,
+							headers: {
+								"User-Agent": config.get('useragent')
+							},
+							body: {
+								username: config.get('name'),
+								embeds: [{
+									author: {
+										name: `${req.user.login}@${req.user.type}`,
+									},
+									title: "Submitted",
+									description: `${input.name}`
+								}]
+							}
+						}
+
+						request.post(data);
 						return res.render('success.html', { user: req.user })
 					});
 			});
