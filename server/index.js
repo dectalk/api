@@ -436,7 +436,6 @@ app.use('/auth', authRouter)
 
 					cursor.toArray((err, result) => {
 						if (err) return res.send(500, {error: err.message});
-						res.render('success.html', { user: req.user });
 
 						result.filter((elem) => {
 							return elem.status == "render";
@@ -454,6 +453,8 @@ app.use('/auth', authRouter)
 										exec(`type ${path} | say -w client\\dec\\${elem.id}.wav`, (err) => {
 											if (err) throw err;
 
+											console.log("Updated:", elem.id, elem.name);
+
 											r.table("list")
 												.get(elem.id)
 												.update({status: null});
@@ -462,6 +463,8 @@ app.use('/auth', authRouter)
 								});
 							}, i*200);
 						});
+
+						res.render('success.html', { user: req.user });
 					});
 			});
 	})
