@@ -67,8 +67,8 @@
 					<p>MSS provides a free webservice to allow users to use DECtalk without a Microsoft Windows computer.</p>
 					<form action="/api/gen" method="POST">
 						<div class="form-group">
-							<label for="input">Insert DECtalk Query</label>
-							<textarea class="form-control" id="input" name="input"></textarea>
+							<label for="dectalk">Insert DECtalk Query</label>
+							<textarea class="form-control" id="dectalk" name="dectalk"></textarea>
 						</div>
 						<p><button type="submit" class="btn btn-primary">Download »</button></p>
 						<p>Maximum Characters: 10,000</p>
@@ -90,14 +90,14 @@
 				</div>
 				<div class="col-md-4">
 					<h2><code>POST</code></h2>
-					<p>Send a <code>POST</code> request to <code>/post</code> and send a JSON encoded string with your query as <code>input</code>:</p>
-					<p><code>{"input": "[dectalk]"}</code></p>
+					<p>Send a <code>POST</code> request to <code>/api/gen</code> and send a JSON encoded string with your query as <code>input</code>:</p>
+					<p><code>{"dectalk": "[dectalk]"}</code></p>
 					<p>Maximum Characters: 10,000</p>
 				</div>
 				<div class="col-md-4">
 					<h2><code>GET</code></h2>
-					<p>Send a <code>GET</code> request to <code>/get</code> and append your query to the URL:</p>
-					<p><code>/code?input=[dectalk]</code></p>
+					<p>Send a <code>GET</code> request to <code>/api/gen</code> and append your query to the URL:</p>
+					<p><code>/api/gen?dectalk=[dectalk]</code></p>
 					<p>Maximum Characters: 2,000</p>
 				</div>
 			</div>
