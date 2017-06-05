@@ -53,13 +53,12 @@ var loginCallbackHandler = function (objectMapper, type) {
 		}
 	};
 };
-var callbackURL = 'https://' + config.get('url') + ':' + config.get('ports').http + '/auth/login/callback';
 
 // Github
 passport.use(new GitHubStrategy({
 		clientID: config.get('github').clientID,
 		clientSecret: config.get('github').clientSecret,
-		callbackURL: callbackURL + '/github'
+		callbackURL: config.get('callback') + '/github'
 	},
 	loginCallbackHandler(function (profile) {
 		return {
@@ -75,7 +74,7 @@ passport.use(new GitHubStrategy({
 passport.use(new DiscordStrategy({
 		clientID: config.get('discord').clientID,
 		clientSecret: config.get('discord').clientSecret,
-		callbackURL: callbackURL + '/discord',
+		callbackURL: config.get('callback') + '/discord',
 		scope: config.get('discord').scope
     },
 	loginCallbackHandler(function (profile) {
