@@ -54,7 +54,7 @@ app.use('/auth', authRouter)
 				cursor.toArray((err, result) => {
 					if (err) return res.send(500, {error: err.message});
 					result = result.map((item)=>{
-						item["html"] = `<button type="button" class="btn btn-primary" onclick="copyText('${item.dectalk}')">Copy</button>`
+						item["html"] = `<button type="button" class="btn btn-primary" onclick="copyText('${item.dectalk.replace(/'/g, "\\'")}')">Copy</button>`
 						if(req.user) {
 							if (config.get('admins').includes(`${req.user.login}@${req.user.type}`) || item.author === `${req.user.login}@${req.user.type}`) {
 								item["html"] += `<a class="btn btn-primary" href="/edit?id=${item.id}" role="button">Edit</a>`
