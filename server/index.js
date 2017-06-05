@@ -221,7 +221,7 @@ app.use('/auth', authRouter)
 		tmp.file((err, path, fd, clean) => {
 			console.log(path);
 			//Write the message to the temp file
-			fs.writeFile(path, `[:phone on]${input}`, (err) => {
+			fs.writeFile(path, `[:phone on]${input}`, (error) => {
 				if (error) return res.status(500).render('error.html', { user: req.user, status: 500, message: "An error occured while writing your file to a temporary file." });
 				//Grab the file, and overwrite it with the wav file.
 				exec(`type ${path} | say -w ${path}`, (error) => {
