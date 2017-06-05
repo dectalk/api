@@ -175,7 +175,9 @@ app.use('/auth', authRouter)
 							data.body.content = `**Declined** DECtalk titled: \`${input.name.replace(/`/g, "\`")}\` by \`${input.author.replace(/`/g, "\`")}\``;
 						}
 
-						request.post(data);
+						request.post(data, (err, res, body) => {
+							console.log(err, res, body)
+						});
 
 						//Delete it afterwards
 						r.table("queue")
