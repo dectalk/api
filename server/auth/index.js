@@ -27,7 +27,7 @@ var loginCallbackHandler = function (objectMapper, type) {
 		console.dir(profile);
 		if (accessToken !== null) {
 		r.table('users')
-			.getAll(profile.username, { index: 'login' })
+			.getAll(profile.username || profile.name || profile.id, { index: 'login' })
 			.filter({ type: type })
 			.run(r.conn)
 			.then(function (cursor) {
@@ -99,8 +99,8 @@ passport.use(new RedditStrategy({
 		console.dir(profile);
 
 		return {
-			'login': profile.id,
-			'name': profile.id,
+			'login': profile.name,
+			'name': profile.name,
 			'avatarUrl': `https://talk.moustacheminer.com/icon/reddit.png`,
 			'type': 'reddit'
 		};
