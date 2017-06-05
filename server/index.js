@@ -61,7 +61,7 @@ app.use('/auth', authRouter)
 						} else {
 							item["html"] += `<audio controls preload="none"><source src="/dec/${item.id}.wav"></source></audio>`
 							item["html"] += `<br>`
-							item["html"] += `<a class="btn btn-primary" href="/dec/${item.id}.wav" role="button">Download</a>`
+							item["html"] += `<a class="btn btn-primary" href="/dec/${item.id}.wav" role="button" download>Download</a>`
 						}
 
 						item["html"] += `<button type="button" class="btn btn-primary" onclick="copyText(\`${item.dectalk.replace(/`/g, "\\\`").replace(/"/g, '\\\'')}\`)">Copy</button>`
