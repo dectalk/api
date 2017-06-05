@@ -22,8 +22,10 @@ var r = require("./db");
 app.use(session({
 		secret: config.get('session').secret,
 		resave: false,
-		saveUninitialized: true
+		saveUninitialized: true,
+		proxy: true
 	}))
+	.set('trust proxy', '192.168.0.100')
 	.use(auth.initialize())
 	.use(auth.session())
 	.use(bodyParser.json())
