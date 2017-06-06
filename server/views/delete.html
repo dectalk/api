@@ -56,25 +56,25 @@
 					<form method="post">
 						<div class="form-group">
 							<label for="id">ID</label>
-							<input type="text" class="form-control" id="id" name="id" placeholder="ID" value="{{ form.id }}" disabled>
+							<input type="text" class="form-control" id="id" placeholder="ID" value="{{ form.id }}" disabled>
 						</div>
 						<div class="form-group">
 							<label for="name">Name</label>
-							<input type="text" class="form-control" id="name" name="name" placeholder="Insert Name" value="{{ form.name }}" disabled>
+							<input type="text" class="form-control" id="name" placeholder="Insert Name" value="{{ form.name }}" disabled>
 						</div>
 						<div class="form-group">
 							<label for="author">Author</label>
-							<input type="text" class="form-control" id="author" name="author" placeholder="Insert Author" value="{{ form.author }}" disabled>
+							<input type="text" class="form-control" id="author" placeholder="Insert Author" value="{{ form.author }}" disabled>
 						</div>
 						<div class="form-group">
 							<label for="artist">Artist</label>
-							<input type="text" class="form-control" id="artist" name="artist" placeholder="Insert Artist" value="{{ form.artist }}" disabled>
+							<input type="text" class="form-control" id="artist" placeholder="Insert Artist" value="{{ form.artist }}" disabled>
 						</div>
 						<div class="form-group">
 							<label for="dectalk">DECtalk</label>
-							<textarea class="form-control" id="dectalk" name="dectalk" rows="6" disabled>{{ form.dectalk }}</textarea>
+							<textarea class="form-control" id="dectalk" rows="6" disabled>{{ form.dectalk }}</textarea>
 						</div>
-						<button type="submit" class="btn btn-danger">Delete</button><input type="text" name="csrf" value="{{ csrf }}" style="visibility: hidden">
+						<button type="submit" class="btn btn-danger">Delete</button><input type="text" name="csrf" value="{{ csrf }}" style="visibility: hidden"><input type="text" id="id" value="{{ form.id }}" style="visibility: hidden">
 					</form>
 				</div>
 			</div>
