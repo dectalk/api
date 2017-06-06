@@ -74,7 +74,8 @@
 							<label for="dectalk">DECtalk</label>
 							<textarea class="form-control" id="dectalk" rows="6" disabled>{{ form.dectalk }}</textarea>
 						</div>
-						<button type="submit" class="btn btn-danger">Delete</button><input type="text" name="csrf" value="{{ csrf }}" style="visibility: hidden"><input type="text" id="id" value="{{ form.id }}" style="visibility: hidden">
+						<button type="submit" class="btn btn-danger">Delete</button>
+						<input type="text" name="csrf" value="{{ csrf }}" style="visibility: hidden"><input type="text" id="id" name="id" value="{{ form.id }}" style="visibility: hidden">
 					</form>
 				</div>
 			</div>
