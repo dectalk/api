@@ -35,8 +35,8 @@ module.exports = {
 	],
 	limits: {
 		id: {
-			min: 30,
-			max: 40
+			min: 0,
+			max: 300
 		},
 		name: {
 			min: 5,

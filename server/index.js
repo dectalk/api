@@ -236,7 +236,7 @@ app.use('/auth', authRouter)
 	.post('/delete', function(req, res) {
 		if(!req.user) return res.status(401).render('error.html', { user: req.user, status: 401, message: "You have not logged in yet" });
 		if(!req.body.csrf	|| typeof(req.body.csrf) != "string"	|| req.body.csrf.length > config.get('limits').csrf.max	) return res.status(400).render('error.html', { user: req.user, status: 400, message: "Invalid CSRF token provided" });
-		if(!req.body.id		|| typeof(req.body.id) != "string"		|| req.body.id.length > config.get('limits').author.max	) return res.status(400).render('error.html', { user: req.user, status: 400, message: "The ID was invalid, or outside the allowed range." });
+		if(!req.body.id		|| typeof(req.body.id) != "string"		|| req.body.id.length > config.get('limits').id.max		) return res.status(400).render('error.html', { user: req.user, status: 400, message: "The ID was invalid, or outside the allowed range." });
 
 		r.table("csrf")
 			.get(`${req.user.login}@${req.user.type}`)
