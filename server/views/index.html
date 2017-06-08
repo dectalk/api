@@ -13,10 +13,16 @@
 			<button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<a class="navbar-brand" href="#">DECtalk</a>
+			<a class="navbar-brand" href="/">DECtalk</a>
 
 			<div class="navbar-collapse collapse" id="navbarsExampleDefault" aria-expanded="false">
 				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="https://discordapp.com/oauth2/authorize?&client_id=257547382277931009&scope=bot&permissions=70765632">Discord Invite</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/api">API</a>
+					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/list">Library</a>
 					</li>
@@ -28,20 +34,17 @@
 						<a class="nav-link" href="/auth/logout">Log out</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/add">Add</a>
+						<a class="nav-link" href="#">Add DECtalk</a>
 					</li>
 					{{/user}}
 					{{^user}}
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown01">
-							<a class="dropdown-item" href="/auth/login/github">GitHub</a>
-							<a class="dropdown-item" href="/auth/login/discord">Discord</a>
-							<a class="dropdown-item" href="/auth/login/reddit">Reddit</a>
-						</div>
+					<li class="nav-item">
+						<span class="nav-link">If you are seeing this, we've fucked up somewhere</span>
 					</li>
 					{{/user}}
-
+					<li class="nav-item">
+						<a class="nav-link" href="http://theflameofhope.co/DECTALK.html">theflameofhope</a>
+					</li>
 				</ul>
 			</div>
 		</nav>
@@ -83,26 +86,6 @@
 					<p>Maximum Characters: 2,000</p>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<h2>API</h2>
-					<p>You can connect your services to DECtalk</p>
-					<p>This service is currently provided by a Windows 7 virtual machine with 1GB of RAM.</p>
-				</div>
-				<div class="col-md-4">
-					<h2><code>POST</code></h2>
-					<p>Send a <code>POST</code> request to <code>/api/gen</code> and send a JSON encoded string with your query as <code>input</code>:</p>
-					<p><code>{"dectalk": "[dectalk]"}</code></p>
-					<p>Maximum Characters: 10,000</p>
-				</div>
-				<div class="col-md-4">
-					<h2><code>GET</code></h2>
-					<p>Send a <code>GET</code> request to <code>/api/gen</code> and append your query to the URL:</p>
-					<p><code>/api/gen?dectalk=[dectalk]</code></p>
-					<p>Maximum Characters: 2,000</p>
-				</div>
-			</div>
-
 			<hr>
 
 			<footer>

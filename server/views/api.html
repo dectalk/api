@@ -53,25 +53,32 @@
 		<div class="jumbotron">
 			<div class="container">
 				<h1 class="display-1">DECtalk</h1>
-				<h2>in a library</h2>
+				<h2>but you're developing</h2>
 			</div>
 		</div>
 
-		<table class="table" id="dectalk">
-			<thead>
-				<tr>
-					<th>UUID</th>
-					<th>Name</th>
-					<th>Author</th>
-					<th>Artist</th>
-					<th>Options</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-
 		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2>DECtalk API</h2>
+					<h3>Routes</h3>
+					<p><code>GET /api/list</code> Get the list of DECtalk sounds<br>Returns JSON array:</p>
+					<pre><p><code>[
+	{
+		"name": "Name of the DECtalk Sound",
+		"artist": "Name of whoever originally made the sound",
+		"author": "Name of whoever made the DECtalk sound",
+		"dectalk": "DECtalk input",
+		"html": "HTML that is displayed on the real list",
+	}
+]</code></p></pre>
+					<p><code>GET /api/gen</code> Generate a DECtalk sound.<br>Example: <code>GET /api/gen?dectalk=oh%20no</code><br>Returns WAV file</p>
+
+					<p><code>POST /api/gen</code> Generate a DECtalk sound.<br>Example: <code>GET /api/gen?dectalk=oh%20no</code><br>Returns WAV file</p>
+					<p><code>GET /dec/[UUID].wav</code> Get the pregenerated sound file for a specific ID<br>Returns WAV file</p>
+				</div>
+			</div>
+
 			<hr>
 
 			<footer>
@@ -80,14 +87,8 @@
 			</footer>
 		</div>
 
-		<script>
-			const url = "{{{ url }}}";
-		</script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-		<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-		<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
-		<script src="lib.js"></script>
 	</body>
 </html>

@@ -497,6 +497,9 @@ app.use('/auth', authRouter)
 					});
 			});
 	})
+	.get('/api', function(req, res) {
+		res.render('api.html', { user: req.user });
+	})
 	.use(express.static(__dirname + '/../client'))
 	.use('*', function (req, res) {
 		return res.status(404).render('error.html', { user: req.user, status: 404 });
