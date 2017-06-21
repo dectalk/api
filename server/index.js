@@ -440,7 +440,6 @@ app.use('/auth', authRouter)
 	})
 	.use('/api/gen', function(req, res) {
 		let input = req.body.dectalk || req.query.dectalk;
-		let type = req.body.type || req.query.type;
 		if(!input || typeof(input) != 'string' || input.length > config.get('limits').dectalk.max ) return res.status(400).render('error.html', { user: req.user, status: 400, message: 'The dectalk was invalid, or outside the allowed range.' });
 		console.log(input);
 
@@ -458,6 +457,35 @@ app.use('/auth', authRouter)
 					audio.on('open', () => {
 						res.set('Content-Type', 'audio/wav');
 						res.attachment('output.wav');
+						audio.pipe(res);
+					});
+
+					//There was an error, so spit it out
+					audio.on('error', function(err) {
+						res.end(err);
+					});
+				});
+			});
+		});
+	})
+	.get('/api/file/:file', function(req, res) {
+		let input = req.params.file;
+		if(!input || typeof(input) != 'string' || input.length > config.get('limits').dectalk.max ) return res.status(400).render('error.html', { user: req.user, status: 400, message: 'The dectalk was invalid, or outside the allowed range.' });
+		console.log(input);
+
+		//Make a temp file to store the file
+		tmp.file((err, path, fd, clean) => {
+			//Write the message to the temp file
+			fs.writeFile(path, `[:phone on]${input}`, (error) => {
+				if (error) return res.status(500).render('error.html', { user: req.user, status: 500, message: 'An error occured while writing your file to a temporary file.' });
+				//Grab the file, and overwrite it with the wav file.
+				exec(`type ${path} | say -w ${path}`, (error) => {
+					if (error) return res.status(500).render('error.html', { user: req.user, status: 500, message: 'An error occured while executing the program.' });
+
+					let audio = fs.createReadStream(path);
+
+					audio.on('open', () => {
+						res.set('Content-Type', 'audio/wav');
 						audio.pipe(res);
 					});
 
