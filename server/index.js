@@ -484,6 +484,7 @@ app.use('/auth', authRouter)
 					let audio = fs.createReadStream(path);
 
 					audio.on('open', () => {
+						res.setHeader('Content-disposition', `attachment; filename=${req.params.file}`);
 						res.set('Content-Type', 'audio/wav');
 						audio.pipe(res);
 					});
