@@ -454,9 +454,14 @@ app.use('/auth', authRouter)
 						audio.pipe(res);
 					});
 
+					audio.on('end', () => {
+						clean();
+					});
+
 					// There was an error, so spit it out
 					audio.on('error', (err) => {
 						res.end(err);
+						clean();
 					});
 				});
 			});
