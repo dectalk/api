@@ -7,7 +7,7 @@ const auth = require('./auth');
 const authRouter = require('./auth/auth-router');
 const crypto = require('crypto');
 const tmp = require('tmp');
-const fs = require('fs');
+const fs = require('graceful-fs');
 const exec = require('child_process').exec;
 const request = require('request');
 const path = require('path');
@@ -148,101 +148,115 @@ app.use('/auth', authRouter)
 		} else {
 			r.table('queue')
 				.get(req.query.id)
-				.run(r.conn, (err, result) => {
-					if (err) return res.status(500).render('error.html', { user: req.user, status: 500, message: 'An error occured with the Rethonk DB server.' });
-					if (!result) return res.status(404).render('error.html', { user: req.user, status: 404, message: 'This document does not exist' });
+				.run(r.conn, (err1, result1) => {
+					if (err1) {
+						res.status(500).render('error.html', { user: req.user, status: 500, message: 'An error occured with the Rethonk DB server.' });
+					} else if (!result1) {
+						res.status(404).render('error.html', { user: req.user, status: 404, message: 'This document does not exist' });
+					} else {
+						const input = {
+							artist: result1.artist,
+							author: result1.author,
+							dectalk: result1.dectalk,
+							name: result1.name,
+							status: 'render'
+						};
 
-					const input = {
-						artist: result.artist,
-						author: result.author,
-						dectalk: result.dectalk,
-						name: result.name,
-						status: 'render'
-					};
+						const id = result1.id;
 
-					const id = result.id;
-
-					r.table('csrf')
-						.get(`${req.user.login}@${req.user.type}`)
-						.run(r.conn, (err, result) => {
-							if (err) return res.status(500).render('error.html', { user: req.user, status: 500, message: 'An error occured with the Rethonk DB server.' });
-							if (!result.csrf || !req.query.csrf || result.csrf != req.query.csrf) return res.status(400).render('error.html', { user: req.user, status: 400, message: 'Invalid CSRF token provided' });
-
-							const data = {
-								url: config.get('discord').webhook,
-								method: 'POST',
-								json: true,
-								headers: {
-									'User-Agent': config.get('useragent')
-								},
-								body: {
-									username: config.get('name'),
-									embeds: [{
-										author: {
-											name: `${req.user.login}@${req.user.type}`,
+						r.table('csrf')
+							.get(`${req.user.login}@${req.user.type}`)
+							.run(r.conn, (err2, result2) => {
+								if (err2) {
+									res.status(500).render('error.html', { user: req.user, status: 500, message: 'An error occured with the Rethonk DB server.' });
+								} else if (!result2.csrf || !req.query.csrf || result2.csrf !== req.query.csrf) {
+									res.status(400).render('error.html', { user: req.user, status: 400, message: 'Invalid CSRF token provided' });
+								} else {
+									const data = {
+										url: config.get('discord').webhook,
+										method: 'POST',
+										json: true,
+										headers: {
+											'User-Agent': config.get('useragent')
+										},
+										body: {
+											username: config.get('name'),
+											embeds: [{
+												author: {
+													name: `${req.user.login}@${req.user.type}`,
+												}
+											}]
 										}
-									}]
-								}
-							};
+									};
 
-							if (req.query.accept == 'true') {
-								r.table('list')
-									.insert(input)
-									.run(r.conn, (err, result) => {
-										if (err) return res.status(500).render('error.html', { user: req.user, status: 500, message: 'An error occured with the Rethonk DB server.' });
-										data.body.embeds[0].title = 'Accepted';
-										data.body.embeds[0].description = `\`${result.generated_keys[0]}\` ${input.name} by ${input.author}`;
+									if (req.query.accept === 'true') {
+										r.table('list')
+											.insert(input)
+											.run(r.conn, (err) => {
+												if (err) {
+													res.status(500).render('error.html', { user: req.user, status: 500, message: 'An error occured with the Rethonk DB server.' });
+												} else {
+													data.body.embeds[0].title = 'Accepted';
+													data.body.embeds[0].description = `\`${result2.generated_keys[0]}\` ${input.name} by ${input.author}`;
+													request.post(data);
+												}
+											});
+									} else {
+										data.body.embeds[0].title = 'Rejected';
+										data.body.embeds[0].description = `${input.name} by ${input.author}`;
 										request.post(data);
-									});
-							} else {
-								data.body.embeds[0].title = 'Rejected';
-								data.body.embeds[0].description = `${input.name} by ${input.author}`;
-								request.post(data);
-							}
+									}
 
-							// Delete it afterwards
-							r.table('queue')
-								.get(id)
-								.delete()
-								.run(r.conn, (err, result) => {
-									if (err) return res.status(500).render('error.html', { user: req.user, status: 500, message: 'An error occured with the Rethonk DB server.' });
-									return res.render('success.html', { user: req.user });
-								});
-						});
+									// Delete it afterwards
+									r.table('queue')
+										.get(id)
+										.delete()
+										.run(r.conn, (err) => {
+											if (err) {
+												res.status(500).render('error.html', { user: req.user, status: 500, message: 'An error occured with the Rethonk DB server.' });
+											} else {
+												res.render('success.html', { user: req.user });
+											}
+										});
+								}
+							});
+					}
 				});
 		}
 	})
 	.get('/delete', (req, res) => {
-		if (!req.user) return res.status(401).render('error.html', { user: req.user, status: 401, message: 'You have not logged in yet' });
+		if (!req.user) {
+			res.status(401).render('error.html', { user: req.user, status: 401, message: 'You have not logged in yet' });
+		} else {
+			// Generate token to prevent CSRF.
+			const csrf = crypto.randomBytes(64).toString('hex');
 
-		// Generate token to prevent CSRF.
-		const csrf = crypto.randomBytes(64).toString('hex');
+			// Insert CSRF token into the CSRF token database.
+			r.table('csrf')
+				.insert({
+					id: `${req.user.login}@${req.user.type}`,
+					csrf
+				}, {
+					conflict: 'replace'
+				})
+				.run(r.conn, (err) => {
+					if (err) return res.status(500).render('error.html', { user: req.user, status: 500, message: 'An error occured with the Rethonk DB server.' });
 
-		// Insert CSRF token into the CSRF token database.
-		r.table('csrf')
-			.insert({
-				id: `${req.user.login}@${req.user.type}`,
-				csrf
-			}, {
-				conflict: 'replace'
-			})
-			.run(r.conn, (err, result) => {
-				if (err) return res.status(500).render('error.html', { user: req.user, status: 500, message: 'An error occured with the Rethonk DB server.' });
+					r.table('list')
+						.get(req.query.id)
+						.run(r.conn, (err, result) => {
+							if (err) {
+								res.status(500);
+								return res.render('error.html', { user: req.user, status: 500, message: 'An error occured with the Rethonk DB server.' });
+							}
 
-				r.table('list')
-					.get(req.query.id)
-					.run(r.conn, (err, result) => {
-						if (err) {
-							res.status(500);
-							return res.render('error.html', { user: req.user, status: 500, message: 'An error occured with the Rethonk DB server.' });
-						}
+							if (!result) return res.status(404).render('error.html', { user: req.user, status: 404, message: 'This document does not exist.' });
+							if (!(config.get('admins').includes(`${req.user.login}@${req.user.type}`) || (result.author === `${req.user.login}@${req.user.type}`))) return res.status(403).render('error.html', { user: req.user, status: 403, message: 'You\'re not allowed to be in these realms!' });
 
-						if (!result) return res.status(404).render('error.html', { user: req.user, status: 404, message: 'This document does not exist.' });
-						if (!(config.get('admins').includes(`${req.user.login}@${req.user.type}`) || (result.author === `${req.user.login}@${req.user.type}`))) return res.status(403).render('error.html', { user: req.user, status: 403, message: 'You\'re not allowed to be in these realms!' });
-
-						res.render('delete.html', { user: req.user, form: result, csrf });
-					});
-			});
+							res.render('delete.html', { user: req.user, form: result, csrf });
+						});
+				});
+		}
 	})
 	.post('/delete', (req, res) => {
 		if (!req.user) return res.status(401).render('error.html', { user: req.user, status: 401, message: 'You have not logged in yet' });
