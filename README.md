@@ -10,11 +10,9 @@ Normally, I would have an instruction manual on how to run this on Linux. Howeve
 ### For this art project, you will need:
 
 1. A Windows 7 Machine (Can be Virtual)
-2. Client ID and secret for OAUTH in GitHub, Discord and Reddit
-3. A Discord Webhook
-4. node.js (and npm)
-5. A copy of `say.exe`. You can get one from Snoopi Botten's site: http://theflameofhope.co/
-6. A `RethonkDB` database.
+2. node.js (and npm)
+3. A copy of `say.exe`. You can get one from Snoopi Botten's site: http://theflameofhope.co/
+4. A `RethonkDB` database.
 
 ### Let's get painting!
 
