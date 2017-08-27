@@ -1,5 +1,4 @@
 const express = require('express');
-const config = require('config');
 const tmp = require('tmp');
 const fs = require('fs');
 const r = require('./db');
@@ -27,8 +26,8 @@ const lister = (req, res, next) => {
 
 router.use('/gen', (req, res) => {
 	const input = req.body.dectalk || req.query.dectalk;
-	if (!input || typeof (input) !== 'string' || input.length > config.get('limits').dectalk.max) {
-		res.status(400).json({ message: 'The dectalk was invalid, or outside the allowed range.' });
+	if (!input || typeof (input) !== 'string') {
+		res.status(400).json({ message: 'The dectalk was invalid.' });
 	} else {
 		// Make a temp file to store the file
 		tmp.file((err1, path, fd, clean) => {
