@@ -26,27 +26,6 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/list">Library</a>
 					</li>
-					{{#user}}
-					<li class="nav-item">
-						<span class="nav-link">Logged in as {{ login }}@{{ type }}</span>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/auth/logout">Log out</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Add DECtalk</a>
-					</li>
-					{{/user}}
-					{{^user}}
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown01">
-							<a class="dropdown-item" href="/auth/login/github">GitHub</a>
-							<a class="dropdown-item" href="/auth/login/discord">Discord</a>
-							<a class="dropdown-item" href="/auth/login/reddit">Reddit</a>
-						</div>
-					</li>
-					{{/user}}
 					<li class="nav-item">
 						<a class="nav-link" href="http://theflameofhope.co/DECTALK.html">theflameofhope</a>
 					</li>
@@ -58,25 +37,20 @@
 		<div class="jumbotron">
 			<div class="container">
 				<h1 class="display-1">DECtalk</h1>
-				<h2>in a library</h2>
+				<h2>but has stopped working</h2>
 			</div>
 		</div>
 
-		<table class="table" id="dectalk">
-			<thead>
-				<tr>
-					<th>UUID</th>
-					<th>Name</th>
-					<th>Author</th>
-					<th>Artist</th>
-					<th>Options</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-
 		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2>{{ status }} tackled {{#user}}{{ name }}{{/user}}{{^user}}user{{/user}}!</h2>
+					<p>{{ message }}{{^message}}It was super effective!{{/message}}</p>
+					<br>
+					<p>{{#user}}{{ name }}{{/user}}{{^user}}User{{/user}} went <a href="#" onclick="window.history.back()">back</a> in defeat.</p>
+				</div>
+			</div>
+
 			<hr>
 
 			<footer>
@@ -85,14 +59,8 @@
 			</footer>
 		</div>
 
-		<script>
-			const url = "{{{ url }}}";
-		</script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-		<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-		<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
-		<script src="lib.js"></script>
 	</body>
 </html>

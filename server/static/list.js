@@ -1,34 +1,35 @@
-//Load DataTables on load
+/* eslint-env browser, jquery */
+/* exported copyText */
+
+// Load DataTables on load
 $('#dectalk').DataTable({
-	ajax: url,
-	sAjaxDataProp: "",
+	ajax: '/api/webpage',
+	sAjaxDataProp: '',
 	bAutoWidth: false,
 	fixedColumns: true,
 	aoColumns: [
 		{
-			mData: "id"
+			mData: 'id'
 		},
 		{
-			mData: "name"
+			mData: 'name'
 		},
 		{
-			mData: "author"
+			mData: 'author'
 		},
 		{
-			mData: "artist"
+			mData: 'artist'
 		},
 		{
-			mData: "html"
+			mData: 'html'
 		}
 	]
 });
 
-//
-
-//All hail stackoverflow!
-//http://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
-function copyText(text) {
-	var textArea = document.createElement("textarea");
+// All hail stackoverflow!
+// http://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
+window.copyText = (text) => {
+	const textArea = document.createElement('textarea');
 
 	// Place in top-left corner of screen regardless of scroll position.
 	textArea.style.position = 'fixed';
@@ -50,8 +51,6 @@ function copyText(text) {
 
 	// Avoid flash of white box if rendered for any reason.
 	textArea.style.background = 'transparent';
-
-
 	textArea.value = text;
 
 	document.body.appendChild(textArea);
@@ -61,8 +60,8 @@ function copyText(text) {
 	try {
 		document.execCommand('copy');
 	} catch (err) {
-		alert("The copy was unsuccessful.")
+		console.log('Failed!');
 	}
 
 	document.body.removeChild(textArea);
-}
+};

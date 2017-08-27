@@ -26,27 +26,6 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/list">Library</a>
 					</li>
-					{{#user}}
-					<li class="nav-item">
-						<span class="nav-link">Logged in as {{ login }}@{{ type }}</span>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/auth/logout">Log out</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Add DECtalk</a>
-					</li>
-					{{/user}}
-					{{^user}}
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown01">
-							<a class="dropdown-item" href="/auth/login/github">GitHub</a>
-							<a class="dropdown-item" href="/auth/login/discord">Discord</a>
-							<a class="dropdown-item" href="/auth/login/reddit">Reddit</a>
-						</div>
-					</li>
-					{{/user}}
 					<li class="nav-item">
 						<a class="nav-link" href="http://theflameofhope.co/DECTALK.html">theflameofhope</a>
 					</li>
@@ -58,18 +37,39 @@
 		<div class="jumbotron">
 			<div class="container">
 				<h1 class="display-1">DECtalk</h1>
-				<h2>but you've just finished doing something</h2>
+				<h2>as a website</h2>
 			</div>
 		</div>
 
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<h2>Okay</h2>
-					<p>We've taken what you've just did and will be processing it.</p>
+				<div class="col-md-4">
+					<h2>Library</h2>
+					<p>MSS provides a large library of pre-existing DECtalk outputs, from many different creators.</p>
+					<p>
+						<a class="btn btn-secondary" href="/list" role="button">Enter »</a>
+					</p>
+				</div>
+				<div class="col-md-4">
+					<h2>Web Service</h2>
+					<p>MSS provides a free webservice to allow users to use DECtalk without a Microsoft Windows computer.</p>
+					<form action="/api/gen" method="POST">
+						<div class="form-group">
+							<label for="dectalk">Insert DECtalk Query</label>
+							<textarea class="form-control" id="dectalk" name="dectalk"></textarea>
+						</div>
+						<p><button type="submit" class="btn btn-primary">Download »</button></p>
+						<p>Maximum Characters: 10,000</p>
+					</form>
+				</div>
+				<div class="col-md-4">
+					<h2>MSS-Discord</h2>
+					<p>talk.moustacheminer.com has been integrated into the official moustacheminer.com Discord Bot, which allows you to play DECtalk in your guild.</p>
+					<p><code>@MSS dictate [dectalk]</code></p>
+					<p><a class="btn btn-secondary" href="https://discordapp.com/oauth2/authorize?&client_id=257547382277931009&scope=bot&permissions=70765632" role="button">Invite »</a></p>
+					<p>Maximum Characters: 2,000</p>
 				</div>
 			</div>
-
 			<hr>
 
 			<footer>

@@ -1,0 +1,12 @@
+{
+	"name": "DECtalk Online",
+	"url": "127.0.0.1",
+	"ports": {
+		"http": 3472
+	},
+	"rethinkdb": {
+		"host": "192.168.0.102",
+		"port": 28015,
+		"db": "dectalk"
+	}
+}
