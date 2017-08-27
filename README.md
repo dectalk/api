@@ -11,7 +11,7 @@ Normally, I would have an instruction manual on how to run this on Linux. Howeve
 
 1. A Windows 7 Machine (Can be Virtual)
 2. node.js (and npm)
-3. A copy of `say.exe`. You can get one from Snoopi Botten's site: http://theflameofhope.co/
+3. A copy of DECtalk. You can install a copy from Snoopi Botton's Website here: http://theflameofhope.co/dectalkreader1/DECtalkMain.zip
 4. A `RethonkDB` database.
 
 ### Let's get painting!
