@@ -82,7 +82,7 @@ router.use('/gen', (req, res) => {
 											fs.writeFile(path, `[:phone on]${elem.dectalk}`, (err4) => {
 												if (!err4) {
 													// Grab the file, and write it into the dec folder
-													exec(`type ${path} | say -w client\\dec\\${elem.id}.wav`, (err5) => {
+													exec(`type ${path} | say -w server\\static\\dec\\${elem.id}.wav`, (err5) => {
 														if (!err5) {
 															console.log('Updated:', elem.id, elem.name);
 
