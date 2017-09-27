@@ -1,0 +1,35 @@
+doctype html
+
+html
+	head
+		link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css")
+		block title
+			title DECtalk
+	body
+		nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+			a.navbar-brand(href="/") DECtalk
+			button.navbar-toggler.navbar-toggler-right.collapsed(type="button" data-toggle="collapse" data-target="#navbar")
+				span.navbar-toggler-icon
+			#navbar.navbar-collapse.collapse
+				ul.navbar-nav.mr-auto
+					li.nav-item
+						a.nav-link(href="https://discord.gg/wHgdmf4") Discord Invite
+					li.nav-item
+						a.nav-link(href="/api") API
+					li.nav-item
+						a.nav-link("/list") Library
+					li.nav-item
+						a.nav-link("http://theflameofhope.co/DECTALK.html") theflameofhope
+		main
+			block jumbotron
+			.container
+				block content
+		footer
+			block footer
+				.container
+					hr
+					p Copyright 2015 - 2017, Moustacheminer Server Services
+		block script
+		script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js")
+		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js")

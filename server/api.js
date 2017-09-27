@@ -3,7 +3,6 @@ const tmp = require('tmp');
 const fs = require('fs');
 const r = require('./db');
 const exec = require('child_process').exec;
-const Mustache = require('mustache');
 
 const router = express.Router();
 
@@ -24,7 +23,7 @@ const lister = (req, res, next) => {
 	});
 };
 
-router.use('/gen', (req, res) => {
+router.use('/gen*', (req, res) => {
 	const input = req.body.dectalk || req.query.dectalk;
 	if (!input || typeof (input) !== 'string') {
 		res.status(400).json({ message: 'The dectalk was invalid.' });
@@ -107,30 +106,8 @@ router.use('/gen', (req, res) => {
 	.get('/list', lister, (req, res) => {
 		res.json(res.locals.result);
 	})
-	.get('/webpage', lister, (req, res) => {
-		const result = res.locals.result.map((item) => {
-			item.html = Mustache.render(`
-				{{ #item }}
-				{{ ^status }}
-				<div class="alert alert-danger" role="alert"><strong>Fiddlesticks!</strong> This hasn't been rendered yet</div>
-				{{ /status }}
-				{{ #status }}
-				<audio controls preload='none'><source src='/dec/{{ id }}.wav'></source></audio>
-				<br>
-				<a class='btn btn-primary' href='/dec/{{ id }}.wav' role='button' download='{{ name }}.wav'>Download</a>
-				{{ /status }}
-				<button type='button' class='btn btn-primary' onclick='copyText(\`{{ dectalk }}\`)'>Copy</button>
-				{{ /item }}
-			`, {
-					item
-				});
-
-			return item;
-		});
-		res.json(result);
-	})
 	.get('/', (req, res) => {
-		res.render('api.html', { user: req.user });
+		res.render('api.pug', { user: req.user });
 	});
 
 module.exports = router;

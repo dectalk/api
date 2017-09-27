@@ -1,9 +1,9 @@
 const config = require('config');
 const express = require('express');
 const bodyParser = require('body-parser');
-const engines = require('consolidate');
 const path = require('path');
 const apiRouter = require('./api');
+const r = require('./db');
 
 const app = express();
 
@@ -14,17 +14,30 @@ app.set('trust proxy', '192.168.0.100')
 		extended: true
 	}))
 	.set('views', path.join(__dirname, '/dynamic'))
-	.engine('html', engines.mustache)
-	.set('view engine', 'html')
+	.set('view engine', 'pug')
 	.use('/api', apiRouter)
 	.get('/', (req, res) => {
-		res.render('index.html');
+		res.render('index.pug');
 	})
 	.get('/list', (req, res) => {
-		res.render('list.html');
+		r.table('list').run(r.conn, (err1, cursor) => {
+			if (err1) {
+				res.status(500).json({ error: err1.message });
+			} else {
+				cursor.toArray((err2, result) => {
+					if (err2) {
+						res.status(500).json({ error: err2.message });
+					} else {
+						res.render('list.pug', {
+							dectalk: result
+						});
+					}
+				});
+			}
+		});
 	})
 	.use(express.static(path.join(__dirname, '/static')))
-	.use('*', (req, res) => res.status(404).render('error.html', { user: req.user, status: 404 }));
+	.use('*', (req, res) => res.status(404).render('error.pug', { user: req.user, status: 404 }));
 
 console.log('Listening on', config.get('webserver').port);
 app.listen(config.get('webserver').port);

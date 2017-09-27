@@ -1,0 +1,31 @@
+extends layout.pug
+
+block jumbotron
+	.jumbotron
+		.container
+			h1.display-1 DECtalk
+			h2 but you're developing
+
+block content
+	.row
+		.col-md-12
+			h2 DECtalk API<
+			p MSS provides an online API to generate DECtalk sounds without the need of Microsoft Windows (or compatible) software.
+			| This service is currently being provided by a Windows Server 2008 R2 Virtual Machine with 2GB of allocated RAM.
+			h3 Routes
+			p: code GET /api/list
+			| Get the list of DECtalk sounds
+			| Returns JSON array:
+			pre: code
+				|[
+				|    {
+				|        "name": "Name of the DECtalk Sound",
+				|        "artist": "Name of whoever originally made the sound",
+				|        "author": "Name of whoever made the DECtalk sound",
+				|        "dectalk": "DECtalk input",
+				|        "html": "HTML that is displayed on the real list",
+				|    }
+				|]
+			p: code USE /api/gen
+			| Generate a DECtalk sound.
+			| Use URL parameter, form-data or JSON with "dectalk" key

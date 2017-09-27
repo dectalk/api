@@ -1,30 +1,5 @@
-/* eslint-env browser, jquery */
+/* eslint-env browser */
 /* exported copyText */
-
-// Load DataTables on load
-$('#dectalk').DataTable({
-	ajax: '/api/webpage',
-	sAjaxDataProp: '',
-	bAutoWidth: false,
-	fixedColumns: true,
-	aoColumns: [
-		{
-			mData: 'id'
-		},
-		{
-			mData: 'name'
-		},
-		{
-			mData: 'author'
-		},
-		{
-			mData: 'artist'
-		},
-		{
-			mData: 'html'
-		}
-	]
-});
 
 // All hail stackoverflow!
 // http://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript

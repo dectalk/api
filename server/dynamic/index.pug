@@ -1,0 +1,29 @@
+extends layout.pug
+
+block jumbotron
+	.jumbotron
+		.container
+			h1.display-1 DECtalk
+			h2 as a Windows Service
+
+block content
+	.row
+		.col-md-4
+			h2 Library
+			p MSS provides a large library of pre-existing DECtalk outputs, from many different creators.
+			p: a.btn.btn-secondary(href="/list" role="button") Enter »
+		.col-md-4
+			h2 Web Service
+			p MSS provides a free webservice to allow users to use DECtalk without a Microsoft Windows computer.
+			form(action="/api/gen.wav" method="POST")
+				.form-group
+					label(for="dectalk") Insert DECtalk Query
+					textarea.form-control(name="dectalk")
+				p: button.btn.btn-primary(type="submit") Download »
+				p Maximum Characters: 10,000
+		.col-md-4
+			h2 ParkerBot
+			p talk.moustacheminer.com has been integrated into the official moustacheminer.com Discord Bot, which allows you to play DECtalk in your guild.
+			p: code parker dictate [dectalk]
+			p: a.btn.btn-secondary(href="https://discordapp.com/oauth2/authorize?&client_id=257547382277931009&scope=bot&permissions=70765632" role="button") Invite »
+			p Maximum Characters: As many as you can fit

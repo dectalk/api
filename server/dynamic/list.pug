@@ -1,0 +1,28 @@
+extends layout.pug
+
+block jumbotron
+	.jumbotron
+		.container
+			h1.display-1 DECtalk
+			h2 as a library
+
+block content
+	#accordian(role="tablist")
+	for voice in dectalk
+		.card
+			div.card-header(id=`header-${voice.id}` role="tab")
+				h5.mb-0
+					a.collapsed(data-toggle="collapse" href=`#collapse-${voice.id}`)
+						span #{voice.name}
+			div.collapse(id=`collapse-${voice.id}` role="tabpanel" data-parent="#accordian")
+				.card-body
+					h3 By #{voice.author || "Unknown"}
+					h4 From #{voice.artist}
+					audio(controls preload="none")
+						source(src=`/dec/${voice.id}.wav`)
+					br
+					a.btn.btn-primary(href=`/dec/${voice.id}.wav` download=`${voice.name}.wav`) Download
+					button.btn.btn-primary(type="button" onclick=`copyText(\`${voice.dectalk}\`)`) Copy
+
+block script
+	script(src="list.js")
