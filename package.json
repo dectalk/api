@@ -12,13 +12,14 @@
   "author": "7coil",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.17.2",
+    "body-parser": "^1.18.2",
     "config": "^1.26.1",
     "consolidate": "^0.12.1",
-    "express": "^4.15.3",
+    "express": "^4.15.5",
     "express-session": "^1.15.3",
     "graceful-fs": "^4.1.11",
     "mustache": "^2.3.0",
+    "node-windows": "^0.1.14",
     "passport": "^0.2.2",
     "passport-discord": "^0.1.2",
     "passport-github": "^0.1.5",
@@ -29,7 +30,7 @@
     "tmp": "0.0.31"
   },
   "devDependencies": {
-    "eslint": "^4.5.0",
+    "eslint": "^4.7.2",
     "eslint-config-airbnb-base": "^11.3.2",
     "eslint-plugin-import": "^2.7.0",
     "nodemon": "^1.11.0"
