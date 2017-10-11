@@ -28,6 +28,7 @@ router.use('/gen*', (req, res) => {
 	if (!input || typeof (input) !== 'string') {
 		res.status(400).json({ message: 'The dectalk was invalid.' });
 	} else {
+		console.log(input);
 		// Make a temp file to store the file
 		tmp.file((err1, path, fd, clean) => {
 		// Write the message to the temp file
