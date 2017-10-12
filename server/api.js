@@ -40,9 +40,6 @@ const convert = string => string.split('').map((char) => {
 	if (char.match(/[\u000D\u000A\u0020-\u007F]/)) {
 		return char;
 	} else if (characters[char.charCodeAt(0)]) {
-		if (characters[char.charCodeAt(0)].name === '<control>') {
-			console.dir(characters[char.charCodeAt(0)]);
-		}
 		return ` ${characters[char.charCodeAt(0)].name} `;
 	}
 	return ' Non-Unicode Character ';
