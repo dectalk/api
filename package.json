@@ -19,7 +19,8 @@
     "node-windows": "^0.1.14",
     "pug": "^2.0.0-rc.4",
     "rethinkdb": "^2.3.3",
-    "tmp": "0.0.31"
+    "tmp": "0.0.31",
+    "unicode": "^10.0.0"
   },
   "devDependencies": {
     "eslint": "^4.7.2",

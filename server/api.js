@@ -4,6 +4,50 @@ const fs = require('fs');
 const r = require('./db');
 const exec = require('child_process').exec;
 
+const characters = Object.assign(
+	require('unicode/category/Cc'),
+	require('unicode/category/Zs'),
+	require('unicode/category/Po'),
+	require('unicode/category/Sc'),
+	require('unicode/category/Ps'),
+	require('unicode/category/Pe'),
+	require('unicode/category/Sm'),
+	require('unicode/category/Pd'),
+	require('unicode/category/Nd'),
+	require('unicode/category/Lu'),
+	require('unicode/category/Sk'),
+	require('unicode/category/Pc'),
+	require('unicode/category/Ll'),
+	require('unicode/category/So'),
+	require('unicode/category/Lo'),
+	require('unicode/category/Pi'),
+	require('unicode/category/Cf'),
+	require('unicode/category/No'),
+	require('unicode/category/Pf'),
+	require('unicode/category/Lt'),
+	require('unicode/category/Lm'),
+	require('unicode/category/Mn'),
+	require('unicode/category/Me'),
+	require('unicode/category/Mc'),
+	require('unicode/category/Nl'),
+	require('unicode/category/Zl'),
+	require('unicode/category/Zp'),
+	require('unicode/category/Cs'),
+	require('unicode/category/Co')
+);
+
+const convert = string => string.split('').map((char) => {
+	if (char.match(/[\u000D\u000A\u0020-\u007F]/)) {
+		return char;
+	} else if (characters[char.charCodeAt(0)]) {
+		if (characters[char.charCodeAt(0)].name === '<control>') {
+			console.dir(characters[char.charCodeAt(0)]);
+		}
+		return ` ${characters[char.charCodeAt(0)].name} `;
+	}
+	return ' Non-Unicode Character ';
+}).join('');
+
 const router = express.Router();
 
 const lister = (req, res, next) => {
@@ -24,7 +68,7 @@ const lister = (req, res, next) => {
 };
 
 router.use('/gen*', (req, res) => {
-	const input = req.body.dectalk || req.query.dectalk;
+	const input = convert(req.body.dectalk || req.query.dectalk);
 	if (!input || typeof (input) !== 'string') {
 		res.status(400).json({ message: 'The dectalk was invalid.' });
 	} else {
