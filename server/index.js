@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const apiRouter = require('./api');
 const r = require('./db');
+const { exec } = require('child_process');
 
 const app = express();
 
@@ -41,3 +42,8 @@ app.set('trust proxy', '192.168.0.100')
 
 console.log('Listening on', config.get('webserver').port);
 app.listen(config.get('webserver').port);
+
+setInterval(() => {
+	console.log('Clearing zombie processes');
+	exec('taskkill /IM say.exe /F');
+}, 10000);
