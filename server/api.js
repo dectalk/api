@@ -73,7 +73,6 @@ router.use('/gen*', (req, res) => {
 		dectalk.stdin.write(input);
 
 		dectalk.stdout.on('data', (data) => {
-			console.log(data);
 			res.write(data);
 		});
 
