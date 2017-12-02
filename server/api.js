@@ -42,7 +42,9 @@ router.use('/gen*', (req, res) => {
 							res.status(500).json({ message: err3.message });
 						} else {
 							res.sendFile(path);
-							clean();
+							res.on('finish', () => {
+								clean();
+							});
 						}
 					});
 				}
