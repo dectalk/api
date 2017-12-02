@@ -82,21 +82,7 @@ router.use('/gen*', (req, res) => {
 						if (err3) {
 							res.status(500).json({ message: err3.message });
 						} else {
-							const audio = fs.createReadStream(path);
-
-							audio.on('open', () => {
-								audio.pipe(res);
-							});
-
-							audio.on('end', () => {
-								clean();
-							});
-
-							// There was an error, so spit it out
-							audio.on('error', (err) => {
-								res.end(err);
-								clean();
-							});
+							res.sendFile(path);
 						}
 					});
 				}
