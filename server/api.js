@@ -2,7 +2,7 @@ const express = require('express');
 const tmp = require('tmp');
 const fs = require('fs');
 const r = require('./db');
-const exec = require('child_process').exec;
+const { spawn, exec } = require('child_process');
 
 const characters = Object.assign(
 	require('unicode/category/Cc'),
@@ -69,38 +69,15 @@ router.use('/gen*', (req, res) => {
 	if (!input || typeof (input) !== 'string') {
 		res.status(400).json({ message: 'The dectalk was invalid.' });
 	} else {
-		console.log(input);
-		// Make a temp file to store the file
-		tmp.file((err1, path, fd, clean) => {
-		// Write the message to the temp file
-			fs.writeFile(path, `[:phone on]${input}`, (err2) => {
-				if (err2) {
-					res.status(500).json({ message: err2.message });
-				} else {
-					// Grab the file, and overwrite it with the wav file.
-					exec(`type ${path} | say -w ${path}`, (err3) => {
-						if (err3) {
-							res.status(500).json({ message: err3.message });
-						} else {
-							const audio = fs.createReadStream(path);
+		const dectalk = spawn('say');
+		dectalk.stdin.write(input);
 
-							audio.on('open', () => {
-								audio.pipe(res);
-							});
+		dectalk.stdout.on('data', (data) => {
+			res.write(data);
+		});
 
-							audio.on('end', () => {
-								clean();
-							});
-
-							// There was an error, so spit it out
-							audio.on('error', (err) => {
-								res.end(err);
-								clean();
-							});
-						}
-					});
-				}
-			});
+		dectalk.stdout.on('close', () => {
+			res.end();
 		});
 	}
 })
