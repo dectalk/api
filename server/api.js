@@ -65,7 +65,7 @@ const lister = (req, res, next) => {
 };
 
 router.use('/gen*', (req, res) => {
-	const input = convert(req.body.dectalk || req.query.dectalk);
+	const input = convert(req.body.dectalk || req.query.dectalk || '');
 	if (!input || typeof (input) !== 'string') {
 		res.status(400).json({ message: 'The dectalk was invalid.' });
 	} else {
