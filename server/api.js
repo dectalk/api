@@ -69,15 +69,38 @@ router.use('/gen*', (req, res) => {
 	if (!input || typeof (input) !== 'string') {
 		res.status(400).json({ message: 'The dectalk was invalid.' });
 	} else {
-		const dectalk = spawn('say', ['-w', 'CON']);
-		dectalk.stdin.write(input);
+		console.log(input);
+		// Make a temp file to store the file
+		tmp.file((err1, path, fd, clean) => {
+		// Write the message to the temp file
+			fs.writeFile(path, `[:phone on]${input}`, (err2) => {
+				if (err2) {
+					res.status(500).json({ message: err2.message });
+				} else {
+					// Grab the file, and overwrite it with the wav file.
+					exec(`type ${path} | say -w ${path}`, (err3) => {
+						if (err3) {
+							res.status(500).json({ message: err3.message });
+						} else {
+							const audio = fs.createReadStream(path);
 
-		dectalk.stdout.on('data', (data) => {
-			res.write(data);
-		});
+							audio.on('open', () => {
+								audio.pipe(res);
+							});
 
-		dectalk.stdout.on('close', () => {
-			res.end();
+							audio.on('end', () => {
+								clean();
+							});
+
+							// There was an error, so spit it out
+							audio.on('error', (err) => {
+								res.end(err);
+								clean();
+							});
+						}
+					});
+				}
+			});
 		});
 	}
 })
