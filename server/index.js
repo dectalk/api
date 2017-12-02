@@ -17,6 +17,7 @@ app.set('trust proxy', '192.168.0.100')
 	.set('views', path.join(__dirname, '/dynamic'))
 	.set('view engine', 'pug')
 	.use('/api', apiRouter)
+	.get('/edit', (req, res) => res.render('edit'))
 	.get('/', (req, res) => {
 		res.render('index.pug');
 	})
@@ -43,7 +44,9 @@ app.set('trust proxy', '192.168.0.100')
 console.log('Listening on', config.get('webserver').port);
 app.listen(config.get('webserver').port);
 
-setInterval(() => {
-	console.log('Clearing zombie processes');
-	exec('taskkill /IM say.exe /F');
-}, 10000);
+if (process.platform !== 'linux') {
+	setInterval(() => {
+		console.log('Clearing zombie processes');
+		exec('taskkill /IM say.exe /F');
+	}, 10000);
+}

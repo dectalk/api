@@ -69,10 +69,11 @@ router.use('/gen*', (req, res) => {
 	if (!input || typeof (input) !== 'string') {
 		res.status(400).json({ message: 'The dectalk was invalid.' });
 	} else {
-		const dectalk = spawn('say');
+		const dectalk = spawn('say', ['-w', 'CON']);
 		dectalk.stdin.write(input);
 
 		dectalk.stdout.on('data', (data) => {
+			console.log(data);
 			res.write(data);
 		});
 
