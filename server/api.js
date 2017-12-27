@@ -41,7 +41,11 @@ router.use('/gen*', (req, res) => {
 						if (err3) {
 							res.status(500).json({ message: err3.message });
 						} else {
-							res.sendFile(path);
+							res.sendFile(path, {
+								headers: {
+									'Content-Type': 'audio/wav'
+								}
+							});
 							res.on('finish', () => {
 								clean();
 							});
