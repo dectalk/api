@@ -43,7 +43,8 @@ router.use('/gen*', (req, res) => {
 						} else {
 							res.sendFile(path, {
 								headers: {
-									'Content-Type': 'audio/wav'
+									'Content-Type': 'audio/wav',
+									'Content-Disposition': 'attachment; filename=dectalk.wav'
 								}
 							});
 							res.on('finish', () => {
