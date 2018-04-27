@@ -26,5 +26,5 @@ app.listen(config.get('webserver').port);
 
 // Chown the new socket
 if (typeof config.get('webserver').port !== 'number') {
-	exec(`chown ${config.get('sock_owner')} ${config.get('webserver').port}`);
+	exec(`chown ${config.get('webserver').sock_owner} ${config.get('webserver').port}`);
 }

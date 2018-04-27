@@ -1,9 +1,9 @@
 {
 	"webserver": {
+		"sock_owner": "www-data",
 		"port": "/tmp/dectalk.sock"
 	},
   "path": "/root/dectalk/say.exe",
-	"sock_owner": "www-data",
 	"exec": {
 		"cwd": "/root/dectalk"
 	}
