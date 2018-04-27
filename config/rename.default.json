@@ -1,12 +1,5 @@
 {
 	"webserver": {
 		"port": 8080
-	},
-	"api": {
-		"rethinkdb": {
-			"host": "192.168.0.102",
-			"port": 28015,
-			"db": "dectalk"
-		}
 	}
 }

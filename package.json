@@ -4,9 +4,9 @@
 	"description": "DECtalk as a Web Service",
 	"main": "./server",
 	"scripts": {
-	"start": "node server/index.js",
-	"render": "node server/render.js",
-	"test": "echo ACHTUNG! NEIN!",
+		"start": "node server/index.js",
+		"render": "node server/render.js",
+		"test": "echo ACHTUNG! NEIN!",
 		"dev": "./node_modules/nodemon/bin/nodemon.js ./server"
 	},
 	"author": "7coil",
