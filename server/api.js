@@ -14,7 +14,7 @@ router.use('/gen*', (req, res) => {
 	// Write the contents of the text to a file. Prevents command line injection
 	fs.writeFileSync(`/tmp/${textFileName}`, `[:phone on]${input}`);
 
-	exec(`cat /tmp/${textFileName} | DISPLAY=:0.0 wine ${config.path} -w /tmp/${wavFileName}`, (error) => {
+	exec(`cat /tmp/${textFileName} | DISPLAY=:0.0 wine ${config.path} -w /tmp/${wavFileName}`, config.get('exec'), (error) => {
 		if (error) {
 			res.status(404).json({
 				ok: false,

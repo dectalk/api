@@ -2,5 +2,8 @@
 	"webserver": {
 		"port": "/tmp/dectalk.sock"
 	},
-  "path": "/root/dectalk/say.exe"
+  "path": "/root/dectalk/say.exe",
+	"exec": {
+		"cwd": "/root/dectalk"
+	}
 }
