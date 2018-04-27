@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const { exec } = require('child_process');
 const crypto = require('crypto');
+const config = require('config');
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.use('/gen*', (req, res) => {
 	// Write the contents of the text to a file. Prevents command line injection
 	fs.writeFileSync(`/tmp/${textFileName}`, `[:phone on]${input}`);
 
-	exec(`cat /tmp/${textFileName} | DISPLAY=:0.0 wine say.exe -w /tmp/${wavFileName}`, (error) => {
+	exec(`cat /tmp/${textFileName} | DISPLAY=:0.0 wine ${config.path} -w /tmp/${wavFileName}`, (error) => {
 		if (error) {
 			res.status(404).json({
 				ok: false,
