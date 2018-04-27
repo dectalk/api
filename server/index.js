@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const apiRouter = require('./api');
 const fs = require('fs');
+const { exec } = require('child_process')
 
 const app = express();
 
@@ -14,6 +15,16 @@ app.use(bodyParser.json())
 	.use('/api', apiRouter)
 	.use('*', (req, res) => res.redirect('https://docs.terminal.ink/dectalk/'));
 
-if (typeof config.get('webserver').port !== 'number') fs.unlink(config.get('webserver').port, console.error);
+// Remove old socket
+if (typeof config.get('webserver').port !== 'number') {
+	fs.unlinkSync(config.get('webserver').port, console.error);
+}
+
+// Create a socket, or listen to a port
 console.log('Listening on', config.get('webserver').port);
 app.listen(config.get('webserver').port);
+
+// Chown the new socket
+if (typeof config.get('webserver').port !== 'number') {
+	exec(`chown ${config.get('sock_owner')} ${config.get('webserver').port}`);
+}
