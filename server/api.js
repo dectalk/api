@@ -16,6 +16,7 @@ router.use('/gen*', (req, res) => {
 
 	exec(`cat /tmp/${textFileName} | DISPLAY=:0.0 wine ${config.path} -w /tmp/${wavFileName}`, config.get('exec'), (error) => {
 		if (error) {
+			console.error(error);
 			res.status(404).json({
 				ok: false,
 				message: error.message
@@ -30,8 +31,8 @@ router.use('/gen*', (req, res) => {
 		}
 
 		res.on('finish', () => {
-			fs.unlink(`/tmp/${textFileName}`, console.error);
-			fs.unlink(`/tmp/${wavFileName}`, console.error);
+			fs.unlink(`/tmp/${textFileName}`, (err) => { if (err) console.error(err); });
+			fs.unlink(`/tmp/${wavFileName}`, (err) => { if (err) console.error(err); });
 		});
 	});
 });

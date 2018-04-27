@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const apiRouter = require('./api');
 const fs = require('fs');
-const { exec } = require('child_process')
+const { exec } = require('child_process');
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.use(bodyParser.json())
 
 // Remove old socket
 if (typeof config.get('webserver').port !== 'number') {
-	fs.unlinkSync(config.get('webserver').port, console.error);
+	fs.unlinkSync(config.get('webserver').port, (err) => { if (err) console.error(err); });
 }
 
 // Create a socket, or listen to a port
