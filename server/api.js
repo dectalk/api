@@ -30,8 +30,8 @@ router.use('/gen*', (req, res) => {
 		}
 
 		res.on('finish', () => {
-			fs.unlinkSync(`/tmp/${textFileName}`, console.error);
-			fs.unlinkSync(`/tmp/${wavFileName}`, console.error);
+			fs.unlink(`/tmp/${textFileName}`, console.error);
+			fs.unlink(`/tmp/${wavFileName}`, console.error);
 		});
 	});
 });
