@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 		extended: true
 	}))
 	.use('/api', apiRouter)
-	.use('*', (req, res) => res.redirect('https://docs.terminal.ink/dectalk/'));
+	.use('*', (req, res) => res.redirect('https://github.com/7coil/dectalk-webserver/wiki'));
 
 // Remove old socket
 if (typeof config.get('webserver').port !== 'number') {
