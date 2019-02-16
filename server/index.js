@@ -2,6 +2,7 @@ const config = require('config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const apiRouter = require('./api');
+var cors = require('cors');
 const fs = require('fs');
 const { exec } = require('child_process');
 
@@ -12,6 +13,7 @@ app.use(bodyParser.json())
 	.use(bodyParser.urlencoded({
 		extended: true
 	}))
+	.use(cors())
 	.use('/api', apiRouter)
 	.use('*', (req, res) => res.redirect('https://github.com/7coil/dectalk-webserver/wiki'));
 
