@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
       res.sendFile(file, {
         headers: {
           'Content-Type': 'audio/wav',
-          'Content-Disposition': 'attachment; filename=error.wav'
+          'Content-Disposition': 'attachment; filename=dectalk.wav'
         }
       });
 
