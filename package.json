@@ -15,11 +15,12 @@
 		"body-parser": "^1.18.2",
 		"config": "^1.26.1",
 		"cors": "^2.8.5",
-		"express": "^4.15.5"
+		"express": "^4.16.4",
+		"tmp": "0.0.33"
 	},
 	"devDependencies": {
-		"eslint": "^4.7.2",
+		"eslint": "^5.14.0",
 		"eslint-config-airbnb-base": "^11.3.2",
-		"eslint-plugin-import": "^2.7.0"
+		"eslint-plugin-import": "^2.16.0"
 	}
 }
