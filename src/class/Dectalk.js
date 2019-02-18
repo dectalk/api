@@ -1,4 +1,4 @@
-const { spawn } = require('child_process');
+const { spawn, exec } = require('child_process');
 const tmp = require('tmp');
 const { Readable } = require('stream');
 const config = require('../config.json');
@@ -29,16 +29,7 @@ module.exports = class Dectalk {
         });
       } else if (process.platform === 'linux') {
         // Use wine to run this program
-        executable = spawn('wine', [
-          config[process.platform].executable,
-          '-w', this.outFile.name
-        ], {
-          detached: true,
-          stdio: ['pipe', 'inherit', 'inherit'],
-          env: {
-            DISPLAY: ':0.0'
-          }
-        });
+        executable = exec(`DISPLAY=:0.0 wine ${config[process.platform].executable} -w ${this.outFile.name}`);
       }
 
       // Pipe the user's input into the process
