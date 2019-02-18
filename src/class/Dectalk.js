@@ -12,6 +12,7 @@ module.exports = class Dectalk {
 
     // Create a stream with the user's input
     this.textStream = new Readable();
+    this.textStream.push('[:phoneme on]');
     this.textStream.push(text);
     this.textStream.push(null);
   }
