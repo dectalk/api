@@ -34,6 +34,7 @@ module.exports = class Dectalk {
           '-w', this.outFile.name
         ], {
           detached: true,
+          stdio: ['pipe', 'inherit', 'inherit'],
           env: {
             DISPLAY: ':0.0'
           }
