@@ -31,10 +31,8 @@ module.exports = class Dectalk {
       } else if (process.platform === 'linux') {
         // Use wine to run this program
         executable = spawn('wine', [
-          config[process.platform].executable,
-          '-w', this.outFile.name
+          `${config[process.platform].executable} -w this.outFile.name`
         ], {
-          detached: true,
           env: {
             DISPLAY: ':0.0'
           }
@@ -56,6 +54,7 @@ module.exports = class Dectalk {
         this.cleanup();
         if (code === 0) {
           // Then resolve if exited correctly
+          console.log('Successfully exited with error code 0');
           resolve(this.outFile.name);
         } else {
           reject(`The executable exited with error code ${code}`);
