@@ -31,11 +31,13 @@ module.exports = class Dectalk {
       } else if (process.platform === 'linux') {
         // Use wine to run this program
         executable = spawn('wine', [
-          `${config[process.platform].executable} -w this.outFile.name`
+          config[process.platform].executable,
+          '-w', this.outFile.name
         ], {
           env: {
             DISPLAY: ':0.0'
-          }
+          },
+          cwd: '/root/dectalk/'
         });
       }
 
@@ -64,6 +66,14 @@ module.exports = class Dectalk {
       executable.on('error', (err) => {
         this.cleanup();
         reject(`Failed to execute command. ${err.message}`);
+      });
+
+      executable.stdout.on('data', (data) => {
+        console.log(data.toString());
+      });
+
+      executable.stderr.on('data', (data) => {
+        console.log(data.toString());
       });
     });
   }
